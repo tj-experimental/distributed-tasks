@@ -1,6 +1,0 @@
-setup.py
-queue_task_runners.egg-info/PKG-INFO
-queue_task_runners.egg-info/SOURCES.txt
-queue_task_runners.egg-info/dependency_links.txt
-queue_task_runners.egg-info/entry_points.txt
-queue_task_runners.egg-info/top_level.txt

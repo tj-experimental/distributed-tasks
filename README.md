@@ -1,6 +1,6 @@
-##### Console scripts that demonstrate python queue functionality.
+### Console scripts demonstrating python queue functionality.
 
-### Installation
+#### Installation
 ```bash
 $ pip install -e .
 $ conditional_task  # Runs a simple producer task with a single queue.

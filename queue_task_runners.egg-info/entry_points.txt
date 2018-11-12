@@ -1,0 +1,4 @@
+[console_scripts]
+conditional_tasks = conditional_tasks:main
+producer_consumer_queue = producer_consumer_queue:mainmutual_exclusion_tasks = mutual_exclusion_tasks:main
+

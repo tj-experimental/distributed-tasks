@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: queue-task-runners
+Version: 0.1.0
+Summary: Console scripts that explain producer - queue / message brokers and consumers / worker threads.
+Home-page: UNKNOWN
+Author: Tonye Jack
+Author-email: jtonye@ymail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN

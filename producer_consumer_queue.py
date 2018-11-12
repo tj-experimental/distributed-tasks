@@ -7,8 +7,6 @@ import random
 MAX_ITEMS = 10
 QUEUE = queue.Queue(MAX_ITEMS)
 
-condition = threading.Condition()
-
 
 class ProducerThread(threading.Thread):
 

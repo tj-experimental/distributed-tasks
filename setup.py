@@ -8,6 +8,14 @@ entry_points = {
     ]
 }
 
+install_requires = [
+    'Celery>=4.2.1',
+]
+
+extra_requires = {
+    'development': ['pip-tools==2.0.2',]
+}
+
 setup(
     name='queue_task_runners',
     version='0.1.0',
@@ -17,4 +25,6 @@ setup(
     author_email='jtonye@ymail.com',
     packages=find_packages(),
     entry_points=entry_points,
+    install_requires=install_requires,
+    extras_require=extra_requires,
 )

@@ -6,3 +6,7 @@ redis-install:
 install:
 	@pip install -e .'[development]'
 	@pip-sync
+
+start-celery:
+	@pip freeze | grep -i 'celery' || @$(MAKE) install
+	@celery -A celery_task worker --loglevel=info

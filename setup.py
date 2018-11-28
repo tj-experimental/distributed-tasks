@@ -10,7 +10,7 @@ entry_points = {
 
 install_requires = [
     'Celery>=4.2.1',
-    'redis>=2.10.6',
+    'redis==2.10.6',
 ]
 
 extra_requires = {

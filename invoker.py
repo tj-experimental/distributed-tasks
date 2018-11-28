@@ -3,9 +3,9 @@
 # from celery.result import AsyncResult
 #
 # from celery_task import add
-from celery_task import data_extractor
-
-data_extractor.delay()
+# from celery_task import data_extractor
+#
+# data_extractor.delay()
 
 # result = add.delay(2, 4)
 #

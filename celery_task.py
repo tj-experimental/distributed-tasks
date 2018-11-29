@@ -5,6 +5,7 @@ from datetime import timedelta
 
 from celery import Celery
 from celery.task import periodic_task
+from celery.schedules import crontab
 
 logging.basicConfig(level=logging.DEBUG)
 

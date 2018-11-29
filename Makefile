@@ -11,5 +11,5 @@ start-celery:
 	@pip freeze | grep -i 'celery' || @$(MAKE) install
 	@celery -A celery_task worker --loglevel=info
 
-start-celery-beat: start-celery
+start-celery-beat:
 	@celery -A celery_task beat --loglevel=info

@@ -11,6 +11,7 @@ entry_points = {
 install_requires = [
     'Celery>=4.2.1',
     'redis==2.10.6',
+    'ephem==3.7.6.0',
 ]
 
 extra_requires = {

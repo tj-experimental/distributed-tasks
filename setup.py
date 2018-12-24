@@ -12,6 +12,7 @@ install_requires = [
     'Celery>=4.2.1',
     'redis==2.10.6',
     'ephem==3.7.6.0',
+    'boto3==1.9.71',
 ]
 
 extra_requires = {

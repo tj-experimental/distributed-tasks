@@ -2,10 +2,7 @@ import json
 import logging
 import time
 
-import boto3
-
 from sqs.config import BaseSQSConfig
-
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -13,16 +10,6 @@ log = logging.getLogger(__name__)
 
 class SQSConsumerClient(BaseSQSConfig):
     start_msg = 'Starting sqs worker listening on {queue_url}'
-
-    def __init__(self):
-        self.sqs = (
-            boto3.client(
-                'sqs',
-                region_name='us-east-1',
-                aws_access_key_id=self.ACCESS_KEY,
-                aws_secret_access_key=self.SECRET_KEY,
-            )
-        )
 
     def _delete_message(self, message):
         log.info(f"Receive Message: {message}")

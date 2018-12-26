@@ -11,16 +11,6 @@ log = logging.getLogger(__name__)
 
 class SQSInvokerClient(BaseSQSConfig):
 
-    def __init__(self):
-        self.sqs = (
-            boto3.client(
-                'sqs',
-                region_name='us-east-1',
-                aws_access_key_id=self.ACCESS_KEY,
-                aws_secret_access_key=self.SECRET_KEY,
-            )
-        )
-
     def _send_msg(self, **kwargs):
         response = self.sqs.send_message(QueueUrl=self.QUEUE_URL, **kwargs)
         log.info(response)

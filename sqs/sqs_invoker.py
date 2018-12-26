@@ -3,26 +3,27 @@ import logging
 
 import boto3
 
-from sqs.config import ACCESS_KEY, QUEUE_URL, SECRET_KEY
+from sqs.config import BaseSQSConfig
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-class SQSInvokerClient(object):
+class SQSInvokerClient(BaseSQSConfig):
+
     def __init__(self):
         self.sqs = (
             boto3.client(
                 'sqs',
                 region_name='us-east-1',
-                aws_access_key_id=ACCESS_KEY,
-                aws_secret_access_key=SECRET_KEY,
+                aws_access_key_id=self.ACCESS_KEY,
+                aws_secret_access_key=self.SECRET_KEY,
             )
         )
 
     def _send_msg(self, **kwargs):
-        response = self.sqs.send_message(QueueUrl=QUEUE_URL, **kwargs)
-        log.debug(response)
+        response = self.sqs.send_message(QueueUrl=self.QUEUE_URL, **kwargs)
+        log.info(response)
         log.info("Sent message.")
         return response
 
@@ -40,7 +41,7 @@ class SQSInvokerClient(object):
             ]}
         })
 
-        return self._send_msg(MessageBody=payload)
+        return self._send_msg(MessageBody="This will raise an exception!")
 
 
 

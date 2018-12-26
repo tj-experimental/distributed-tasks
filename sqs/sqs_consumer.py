@@ -4,41 +4,60 @@ import time
 
 import boto3
 
-from sqs.config import ACCESS_KEY, QUEUE_URL, SECRET_KEY
+from sqs.config import BaseSQSConfig
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-class SQSConsumerClient(object):
+
+class SQSConsumerClient(BaseSQSConfig):
+    start_msg = 'Starting sqs worker listening on {queue_url}'
+
     def __init__(self):
         self.sqs = (
             boto3.client(
                 'sqs',
                 region_name='us-east-1',
-                aws_access_key_id=ACCESS_KEY,
-                aws_secret_access_key=SECRET_KEY,
+                aws_access_key_id=self.ACCESS_KEY,
+                aws_secret_access_key=self.SECRET_KEY,
             )
         )
 
     def _delete_message(self, message):
-        log.debug(f"Receive Message: {message}")
-        log.debug(
+        log.info(f"Receive Message: {message}")
+        log.info(
             f"Deleting sqs message: {message.get('ReceiptHandle')}",
         )
         return (
             self.sqs.delete_message(
-                QueueUrl=QUEUE_URL,
+                QueueUrl=self.QUEUE_URL,
                 ReceiptHandle=message.get('ReceiptHandle'),
             )
         )
 
-    def _connect(self):
-        log.debug(f"Starting sqs worker listening on {QUEUE_URL}")
+    def _handle_message(self, message):
+        try:
+            str_message_body = message.get('Body')
+            log.info(f"Message Body: {str_message_body}")
+            body = json.loads(str_message_body)
+            if not body.get('jobId'):
+                log.warning("No Job ID provided.")
+                self._delete_message(message=message)
+            else:
+                job_id = body['jobId']
+                log.info(f"Running Job ID: {job_id}")
+                self._delete_message(message=message)
+        except Exception as e:
+            log.exception(f"An Error occurred {e}")
+            # self._delete_message(message=message)
+
+    def connect(self):
+        log.info(self.start_msg.format(queue_url=self.QUEUE_URL))
 
         while True:
             response = self.sqs.receive_message(
-                QueueUrl=QUEUE_URL,
+                QueueUrl=self.QUEUE_URL,
                 AttributeNames=['All'],
                 MessageAttributeNames=['string'],
                 MaxNumberOfMessages=1,
@@ -48,26 +67,12 @@ class SQSConsumerClient(object):
             messages = response.get('Messages', [])
 
             for message in messages:
-                try:
-                    str_message_body = message.get('Body')
-                    log.info(f"Message Body: {str_message_body}")
-                    body = json.loads(str_message_body)
-                    if not body.get('jobId'):
-                        log.warning("No Job ID provided.")
-                        self._delete_message(message=message)
-                    else:
-                        job_id = body['jobId']
-                        log.info(f"Running Job ID: {job_id}")
-                        self._delete_message(message=message)
-                except Exception as e :
-                    log.exception(f"An Error occurred {e}")
-                    self._delete_message(message=message)
+                self._handle_message(message)
 
             time.sleep(10)
             log.info("WORKER STOPPED.")
 
 
-
 if __name__ == '__main__':
     sqs_client = SQSConsumerClient()
-    sqs_client._connect()
+    sqs_client.connect()

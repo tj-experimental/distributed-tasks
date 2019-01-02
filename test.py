@@ -1,6 +1,6 @@
 # datetime format.
 # YYYY-MM-dd-hh:mm:ss
-
+from collections import defaultdict
 from datetime import datetime
 
 def _parse_datetime(datetime_string, format='%Y-%m-%d-%H:%M:%S'):
@@ -23,10 +23,20 @@ def _get_chunks(items, size):
 
 # log is the file contents as one large string:
 def solution(log):
+    stats = defaultdict(list)
     lines = log.split('\n')
     # Function name, context, Timestamp
-    log_information = [v.split(':', maxsplit=2) for v in lines if v]
-    functions = set([log_info[0] for log_info in log_information])
+    log_information = [
+        (log_item[0][0], _parse_log_items(*log_item)) for log_item in
+        _get_chunks(
+            sorted([v.split(':', maxsplit=2) for v in lines if v],
+                   key=lambda item: item[0]),
+            size=2,
+        )
+    ]
+
+    for func_name, duration in log_information:
+        stats[func_name].append(duration)
 
     # function_name: {
     #   'maximum_execution_time': '5s',
@@ -35,24 +45,12 @@ def solution(log):
     # }
 
     return_value = {}
-    for function in functions:
-        func_items = [log_item for log_item in log_information if log_item[0] == function]
+    for func_name, values in stats.items():
+        min_exec_time = min(values)
+        max_exec_time = max(values)
+        average_exec_time = sum(values) / len(values)
 
-        func_calls = [
-            _parse_log_items(*log_item)
-            for log_item in _get_chunks(
-                sorted(
-                    func_items,
-                    key=lambda item: _parse_datetime(item[-1])
-                ),
-                2,
-            )
-        ]
-        min_exec_time = min(func_calls)
-        max_exec_time = max(func_calls)
-        average_exec_time = sum(func_calls) / len(func_calls)
-
-        return_value[function] = {
+        return_value[func_name] = {
             'maximum_execution_time': '%.0fm' % (max_exec_time/60),
             'minimum_execution_time': '%.0fm' % (min_exec_time/60),
             'average_execution_time': '%.0fm' % (average_exec_time/60),

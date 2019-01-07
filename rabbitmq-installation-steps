@@ -1,0 +1,8 @@
+1. Goto https://www.erlang.org/downloads and download erlang
+2. Goto https://www.rabbitmq.com/download.html and download rabbitmq
+3. Enable rabbitmq management UI plugin
+    - Goto /usr/local/sbin
+    - Run `rabbitmq-plugins enable rabbitmq_management`.
+4. Run export PATH=$PATH:/usr/local/sbin
+5. Run rabbitmq-server with homebrew `brew services start rabbitmq`
+4. http://localhost:15672

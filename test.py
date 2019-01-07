@@ -14,8 +14,9 @@ def _get_total_time(start_datetime_string, end_datetime_string):
     return (end_datetime - start_datetime).total_seconds()
 
 def _parse_log_items(start, end):
-    print(start, end)
-    return _get_total_time(start[-1], end[-1])
+    return (
+        _get_total_time(start.split(':', maxsplit=2)[-1], end.split(':', maxsplit=2)[-1])
+    )
 
 def _get_chunks(items, size):
     for i in range(0, len(items), size):
@@ -24,15 +25,11 @@ def _get_chunks(items, size):
 # log is the file contents as one large string:
 def solution(log):
     stats = defaultdict(list)
-    lines = log.split('\n')
+    lines = sorted(log.splitlines(), key=lambda item: item.split(':', maxsplit=2)[0])
     # Function name, context, Timestamp
     log_information = [
-        (log_item[0][0], _parse_log_items(*log_item)) for log_item in
-        _get_chunks(
-            sorted([v.split(':', maxsplit=2) for v in lines if v],
-                   key=lambda item: item[0]),
-            size=2,
-        )
+        (log_item[0], _parse_log_items(*log_item)) for log_item in
+        _get_chunks(lines, size=2)
     ]
 
     for func_name, duration in log_information:

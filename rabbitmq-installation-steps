@@ -6,3 +6,29 @@
 4. Run export PATH=$PATH:/usr/local/sbin
 5. Run rabbitmq-server with homebrew `brew services start rabbitmq`
 4. http://localhost:15672
+
+
+Queues:
+    Types of queues: Persistent and Non persistent queues.(Cleared on restart).
+
+Messages:
+    Types of queues: Persistent and Non persistent queues.(Cleared on restart).
+
+
+Exchanges:
+    Forwards/Pushes messages to queues.
+
+    Types of Exchanges
+    ------------------
+    - Fanout - Fanout out exchange routes all messages bound to it regardless of routing key.
+    - Direct - Direct exchange routes messages to queues bound to the exchange based on routing key.
+    - Topic - Most versatile routing capabilities which support namespace key routing and regex routing
+        to one or more queues based on the routing key.
+        1. (#) - 0 or more words
+        2. (*) - matches any word in a specific section.
+           multi.word.test
+            - Matches
+                'multi.#', '*.word.*', 'multi.word.test', '#'
+           - Non matches
+                'multi.*', 'single.#', 'multi.foo.test'
+    - Headers - Uses the message headers to match to specified header of the bind queues.

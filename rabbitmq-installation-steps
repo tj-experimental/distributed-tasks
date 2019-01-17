@@ -5,7 +5,8 @@
     - Run `rabbitmq-plugins enable rabbitmq_management`.
 4. Run export PATH=$PATH:/usr/local/sbin
 5. Run rabbitmq-server with homebrew `brew services start rabbitmq`
-4. http://localhost:15672
+6. http://localhost:15672
+7. Default access username: guest password: guest
 
 
 Queues:
@@ -32,3 +33,12 @@ Exchanges:
            - Non matches
                 'multi.*', 'single.#', 'multi.foo.test'
     - Headers - Uses the message headers to match to specified header of the bind queues.
+
+
+Plugins
+    consistent-hash-exchange-plugin: Ensure messages are evenly routed to queues bond to it. It evenly
+    distributes based on the hash of the routing keys.
+
+    To enable the plugin run.
+    - rabbitmq-plugins enable rabbitmq_consistent_hash_exchange
+

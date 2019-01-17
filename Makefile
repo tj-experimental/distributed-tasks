@@ -4,8 +4,8 @@ redis-install:
 	@ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
 
 install:
-	@pip install -e .'[development]'
 	@pip-sync
+	@pip install -e .'[development]'
 
 start-celery:
 	@pip freeze | grep -i 'celery' || @$(MAKE) install
@@ -13,3 +13,8 @@ start-celery:
 
 start-celery-beat:
 	@celery -A celery_task beat --loglevel=info
+
+start-flower:
+	@celery flower -A celery_task flower
+
+

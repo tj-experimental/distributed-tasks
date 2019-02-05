@@ -28,8 +28,8 @@ def solution(log):
     lines = sorted(log.splitlines(), key=lambda item: item.split(':', maxsplit=2)[0])
     # Function name, context, Timestamp
     log_information = [
-        (log_item[0], _parse_log_items(*log_item)) for log_item in
-        _get_chunks(lines, size=2)
+        (log_item[0].split(':', maxsplit=2)[0], _parse_log_items(*log_item))
+        for log_item in _get_chunks(lines, size=2)
     ]
 
     for func_name, duration in log_information:

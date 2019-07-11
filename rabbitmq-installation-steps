@@ -42,3 +42,17 @@ Plugins
     To enable the plugin run.
     - rabbitmq-plugins enable rabbitmq_consistent_hash_exchange
 
+    shovel-plugin: Reliably move messages from one source in one broker to a destination which could be
+    in another broker. If the source and destination are in the same broker a shovel can be used to move
+    messages between virtual hosts.
+
+    Advantages:
+        - Allow lose coupling as you could have different users on the source and destination brokers.
+        - Some cases different versions on rabbitmq and erlang.
+        - They are also WAN friendly no restrictions to LAN.
+        - They are also customizable and can be configured as static shovels or dynamically at runtime.
+
+     To enable the plugin run.
+     - rabbitmq-plugins enable rabbitmq_shovel
+     - rabbitmq-plugins enable rabbitmq_shovel_management
+

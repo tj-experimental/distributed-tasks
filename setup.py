@@ -13,7 +13,7 @@ install_requires = [
     'flower==0.9.2',
     'redis==2.10.6',
     'ephem==3.7.6.0',
-    'boto3==1.9.71',
+    'boto3==1.9.187',
 ]
 
 extra_requires = {

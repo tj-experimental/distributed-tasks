@@ -5,18 +5,21 @@
 #    pip-compile --output-file requirements.txt setup.py
 #
 amqp==2.3.2               # via kombu
+babel==2.7.0              # via flower
 billiard==3.5.0.4         # via celery
-boto3==1.9.71
-botocore==1.12.71         # via boto3, s3transfer
+boto3==1.9.187
+botocore==1.12.187        # via boto3, s3transfer
 celery==4.2.1
 docutils==0.14            # via botocore
 ephem==3.7.6.0
+flower==0.9.2
 jmespath==0.9.3           # via boto3, botocore
 kombu==4.2.1              # via celery
 python-dateutil==2.7.5    # via botocore
-pytz==2018.7              # via celery
+pytz==2018.7              # via babel, celery, flower
 redis==2.10.6
-s3transfer==0.1.13        # via boto3
+s3transfer==0.2.1         # via boto3
 six==1.12.0               # via python-dateutil
+tornado==6.0.3            # via flower
 urllib3==1.24.1           # via botocore
 vine==1.1.4               # via amqp

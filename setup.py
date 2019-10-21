@@ -23,7 +23,7 @@ extra_requires = {
 setup(
     name='queue_task_runners',
     version='0.1.0',
-    description='Console scripts that explain producer - queue / message brokers and consumers / '
+    description='Console scripts that explains producer - queue / message brokers and consumers / '
                 'worker threads.',
     author='Tonye Jack',
     author_email='jtonye@ymail.com',

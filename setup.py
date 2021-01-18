@@ -9,9 +9,8 @@ entry_points = {
 }
 
 install_requires = [
-    'Celery>=4.2.1',
-    'flower==0.9.2',
-    'redis==2.10.6',
+    'celery[redis]==4.4.6',
+    'flower==0.9.5',
     'ephem==3.7.6.0',
     'boto3==1.9.187',
 ]
@@ -23,8 +22,10 @@ extra_requires = {
 setup(
     name='queue_task_runners',
     version='0.1.0',
-    description='Console scripts that explains producer - queue / message brokers and consumers / '
-                'worker threads.',
+    description="""
+        Console scripts that explains producer - queue / message 
+        brokers and consumers / worker threads.
+    """,
     author='Tonye Jack',
     author_email='jtonye@ymail.com',
     packages=find_packages(),

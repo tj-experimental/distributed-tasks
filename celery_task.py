@@ -30,6 +30,13 @@ LONGITUDE = -79.502520
 # }
 
 
+@app.task(name='celery_tasks.add')
+def add(x, y):
+    total = x + y
+    print(f'{x} + {y} = {total}')
+    time.sleep(10)
+
+
 @app.task(name='celery_tasks.test_post')
 def test_post(x, y):
     total = x + y

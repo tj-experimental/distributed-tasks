@@ -22,7 +22,7 @@ docutils==0.15.2
     # via botocore
 ephem==3.7.6.0
     # via queue_task_runners (setup.py)
-flower==0.9.5
+flower==1.2.0
     # via queue_task_runners (setup.py)
 future==0.18.2
     # via celery

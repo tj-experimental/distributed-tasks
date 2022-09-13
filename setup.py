@@ -10,7 +10,7 @@ entry_points = {
 
 install_requires = [
     'celery[redis]==4.4.6',
-    'flower==0.9.5',
+    'flower==1.2.0',
     'ephem==3.7.6.0',
     'boto3==1.9.187',
 ]
